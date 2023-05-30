@@ -10,11 +10,10 @@ app.use(express.json())
 
 app.use(`/todos`, todoRouter)
 
-app.use((req, res, next) => {
+app.use((req, res) => {
 	return res.status(404).json({
 		error: `Not Found`,
 	})
 })
 
-// export const handler = serverless(app)
-module.exports.handler = serverless(app)
+export const handler = serverless(app)
