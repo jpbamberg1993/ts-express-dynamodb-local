@@ -29,7 +29,7 @@ cd <project-name> && npm install
 
 ```shell
 serverless dynamodb install (or to use a persistent docker dynamodb: cd ./dynamodb && docker-compose up -d)
-serverless offline start
+npm run local
 serverless dynamodb migrate (this imports schema)
 ```
 
@@ -37,10 +37,6 @@ You may need to explicitly install the plugin before running the migration:
 ```shell
 serverless plugin install --name serverless-dynamodb-local
 ```
-
-# Deploy
-
-Change the serverless.yml service name to something appropriate to your project name.
 
 # Usage
 
