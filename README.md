@@ -29,6 +29,11 @@ serverless offline start
 serverless dynamodb migrate (this imports schema)
 ```
 
+You may need to explicitly install the plugin before running the migration:
+```shell
+serverless plugin install --name serverless-dynamodb-local
+```
+
 # Deploy
 
 Change the serverless.yml service name to something appropriate to your project name.
