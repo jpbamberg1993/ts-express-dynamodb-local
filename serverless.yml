@@ -19,6 +19,8 @@ custom:
       dir: 'offline/migrations'
     stages:
       - dev
+      - int
+      - prod
 
 provider:
   name: aws
