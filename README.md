@@ -1,61 +1,94 @@
 <!--
 title: TODO
-description: This example shows your how to create a TypeScript powered HTTP API with DynamoDB.
+description: Started code for an AWS Lambda function with TypeScript and DynamoDB.
 layout: Doc
-framework: v1
+framework: v3
 platform: AWS
 language: nodeJS
-authorLink: 'https://github.com/QuantumInformation'
-authorName: Nikos
-authorAvatar: 'https://avatars0.githubusercontent.com/u/216566?v=4&s=140'
+authorLink: 'https://github.com/jpbamberg1993'
+authorName: Paul Bamberg
+authorAvatar: 'https://avatars.githubusercontent.com/u/11944078?v=4'
 -->
 
-# Introduction
+# Set Up
 
-TypeScript (ts) offers type safety which is helpful when working with the AWS SDK, which comes with ts definitions (d.ts)
+```shell
+npx sls create -u https://github.com/jpbamberg1993/ts-express-dynamodb-local \
+-p <project-name>
+```
 
-# compiling
+```shell
+cd <project-name> && npm install
+```
 
-You can compile the ts files in this directory by 1st installing typescript via
+## Run locally
 
-`npm install -g typescript`
+```shell
+serverless dynamodb install (or to use a persistent docker dynamodb: cd ./dynamodb && docker-compose up -d)
+serverless offline start
+serverless dynamodb migrate (this imports schema)
+```
 
-then
+# Deploy
 
-`npm i`
+Change the serverless.yml service name to something appropriate to your project name.
 
-You can then run the compiler by running `tsc` in this directory. It will pull the settings from .tsconfig and extra @types
-from package.json. The output create.js file is what will be uploaded by serverless.
-
-For brevity, I have just demonstrated this to match with the todos/create.js, todos/list.js, todos/get.js and todos/update.js lambda function
-
-## Usage
+# Usage
 
 You can create, retrieve, update, or delete todos with the following commands:
 
-### Create a Todo
+## Create a Todo
 
 ```bash
-curl -X POST https://XXXXXXX.execute-api.us-east-1.amazonaws.com/todos --data '{ "text": "Learn Serverless" }'
+curl -X POST https://XXXXXXX.execute-api.us-east-1.amazonaws.com/todos \
+--data '{ "text": "Learn Serverless" }'
 ```
 
 Example Result:
-```bash
-{"text":"Learn Serverless","id":"ee6490d0-aa11e6-9ede-afdfa051af86","createdAt":1479138570824,"checked":false,"updatedAt":1479138570824}%
+```json
+{
+  "text": "Learn Serverless",
+  "id": "ee6490d0-aa11e6-9ede-afdfa051af86",
+  "createdAt": 1479138570824,
+  "checked": false,
+  "updatedAt": 1479138570824
+}
 ```
 
-### List all Todos
+## List all Todos
 
 ```bash
 curl https://XXXXXXX.execute-api.us-east-1.amazonaws.com/todos
 ```
 
 Example output:
-```bash
-[{"text":"Deploy my first service","id":"ac90feaa11e6-9ede-afdfa051af86","checked":true,"updatedAt":1479139961304},{"text":"Learn Serverless","id":"206793aa11e6-9ede-afdfa051af86","createdAt":1479139943241,"checked":false,"updatedAt":1479139943241}]%
+```json
+[
+    {
+        "createdAt": 1685389638743,
+        "checked": false,
+        "id": "2ee59d62-2d6c-4ccc-9741-d5613cd733e0",
+        "text": "Copy into project template",
+        "updatedAt": 1685394074752
+    },
+    {
+        "checked": false,
+        "createdAt": 1685389514822,
+        "id": "6891f4e7-9467-418c-b652-ece676a29997",
+        "text": "Get Brenda's present",
+        "updatedAt": 1685389514822
+    },
+    {
+        "checked": false,
+        "createdAt": 1683651295371,
+        "id": "395df5b0-ee8a-11ed-922d-eda87f5bf095",
+        "text": "Learn Serverless",
+        "updatedAt": 1683651295371
+    }
+]
 ```
 
-### Get one Todo
+## Get one Todo
 
 ```bash
 # Replace the <id> part with a real id from your todos table
@@ -63,18 +96,31 @@ curl https://XXXXXXX.execute-api.us-east-1.amazonaws.com/todos/<id>
 ```
 
 Example Result:
-```bash
-{"text":"Learn Serverless","id":"ee6490d0-aa11e6-9ede-afdfa051af86","createdAt":1479138570824,"checked":false,"updatedAt":1479138570824}%
+```json
+{
+    "createdAt": 1685389638743,
+    "checked": false,
+    "id": "2ee59d62-2d6c-4ccc-9741-d5613cd733e0",
+    "text": "Copy into project template",
+    "updatedAt": 1685394074752
+}
 ```
 
-### Update a Todo
+## Update a Todo
 
 ```bash
 # Replace the <id> part with a real id from your todos table
-curl -X PUT https://XXXXXXX.execute-api.us-east-1.amazonaws.com/todos/<id> --data '{ "text": "Learn Serverless", "checked": true }'
+curl -X PUT https://XXXXXXX.execute-api.us-east-1.amazonaws.com/todos/<id> \
+--data '{ "text": "Learn Serverless", "checked": true }'
 ```
 
 Example Result:
-```bash
-{"text":"Learn Serverless","id":"ee6490d0-aa11e6-9ede-afdfa051af86","createdAt":1479138570824,"checked":true,"updatedAt":1479138570824}%
+```json
+{
+    "createdAt": 1685389638743,
+    "checked": false,
+    "id": "2ee59d62-2d6c-4ccc-9741-d5613cd733e0",
+    "text": "Copy into project template",
+    "updatedAt": 1685394074752
+}
 ```

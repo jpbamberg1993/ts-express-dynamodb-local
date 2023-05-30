@@ -1,4 +1,4 @@
-service: game-hub-api
+service: todo-api
 
 frameworkVersion: "3"
 
