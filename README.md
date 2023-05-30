@@ -10,6 +10,10 @@ authorName: Paul Bamberg
 authorAvatar: 'https://avatars.githubusercontent.com/u/11944078?v=4'
 -->
 
+# Introduction
+
+This is based on a mashup of existing templates from [serverless examples](https://github.com/serverless/examples).
+
 # Set Up
 
 ```shell
